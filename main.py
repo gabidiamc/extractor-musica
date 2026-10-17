@@ -23,7 +23,8 @@ def get_ydl_opts():
         "no_warnings": True,
         "extractor_args": {
             "youtube": {
-                "player_client": ["android", "android_vr"]
+                "player_client": ["android", "visionos"],
+                "player_skip": ["webpage", "configs"],
             }
         },
     }
