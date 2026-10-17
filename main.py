@@ -1,5 +1,4 @@
 import os
-import tempfile
 import time
 import requests
 import yt_dlp
@@ -16,32 +15,18 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-COOKIE_CONTENT = os.environ.get("YOUTUBE_COOKIES", "")
-COOKIE_FILE = None
-if COOKIE_CONTENT:
-    try:
-        f = tempfile.NamedTemporaryFile(delete=False, mode="w", encoding="utf-8", suffix=".txt")
-        f.write(COOKIE_CONTENT)
-        f.close()
-        COOKIE_FILE = f.name
-    except Exception:
-        pass
-
 
 def get_ydl_opts():
-    opts = {
+    return {
         "format": "bestaudio/best",
         "quiet": True,
         "no_warnings": True,
         "extractor_args": {
             "youtube": {
-                "player_client": ["android", "ios", "mweb"]
+                "player_client": ["android", "android_vr"]
             }
         },
     }
-    if COOKIE_FILE:
-        opts["cookiefile"] = COOKIE_FILE
-    return opts
 
 
 _cache = {}
